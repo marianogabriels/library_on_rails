@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  db_development:
+    image: postgres:13
+    container_name: postgres_dev_container
+    hostname: postgres-dev
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: librarydev
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+volumes:
+  postgres_dev_data:

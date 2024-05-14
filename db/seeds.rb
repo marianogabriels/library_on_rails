@@ -1,12 +1,4 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+# db/seeds.rb
 
 users = [
   { email: 'user1@example.com', password: 'password123', role: 'member' },
@@ -15,7 +7,10 @@ users = [
 ]
 
 users.each do |user_attributes|
-  User.create!(user_attributes)
+  User.find_or_create_by!(email: user_attributes[:email]) do |user|
+    user.password = user_attributes[:password]
+    user.role = user_attributes[:role]
+  end
 end
 
 books = [
@@ -25,12 +20,18 @@ books = [
 ]
 
 books.each do |book_attributes|
-  Book.create!(book_attributes)
+  Book.find_or_create_by!(isbn: book_attributes[:isbn]) do |book|
+    book.title = book_attributes[:title]
+    book.author = book_attributes[:author]
+    book.genre = book_attributes[:genre]
+    book.total_copies = book_attributes[:total_copies]
+  end
 end
 
 borrows = [
-  { user_id: User.find_by(email: 'user1@example.com').id, book_id: Book.find_by(title: '1984').id, due_at: 2.weeks.from_now },
-  { user_id: User.find_by(email: 'user2@example.com').id, book_id: Book.find_by(title: 'The Hobbit').id, due_at: 2.weeks.from_now }
+  { user: User.find_by(email: 'user1@example.com'), book: Book.find_by(title: '1984'), due_at: 2.weeks.from_now },
+  { user: User.find_by(email: 'user2@example.com'), book: Book.find_by(title: 'The Hobbit'), due_at: 2.weeks.from_now },
+  { user: User.find_by(email: 'user1@example.com'), book: Book.find_by(title: 'To Kill a Mockingbird'), due_at: 2.weeks.ago } # Overdue borrow
 ]
 
 borrows.each do |borrow_attributes|

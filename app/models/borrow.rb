@@ -7,6 +7,8 @@ class Borrow < ApplicationRecord
 
   before_create :set_due_at, if: :new_record?
 
+  scope :waiting_return, -> { where(returned_at: nil) }
+  scope :due_today, -> { where(due_at: Date.today.all_day) }
   private
 
   def set_due_at

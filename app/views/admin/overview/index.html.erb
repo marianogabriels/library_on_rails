@@ -1,0 +1,10 @@
+<!-- app/views/admin/overview/index.html.erb -->
+<div style="padding: 20px">
+  <h1>Overview</h1>
+  <br>
+  <p><b>Total Books:</b> <%= @stats[:total_books] %></p>
+  <br>
+  <p><b>Total borrowed Books:</b> <%= @stats[:borrowed_books] %></p>
+  <br>
+  <p><b>Books Due today</b> <%= @stats[:borrowed_books_due_today] %></p>
+</div>

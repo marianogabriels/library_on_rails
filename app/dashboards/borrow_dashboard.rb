@@ -1,6 +1,6 @@
 require "administrate/base_dashboard"
 
-class BookDashboard < Administrate::BaseDashboard
+class BorrowDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -8,12 +8,11 @@ class BookDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    title: Field::String,
-    author: Field::String,
     id: Field::Number,
-    genre: Field::String,
-    isbn: Field::String,
-    total_copies: Field::Number,
+    book: Field::BelongsTo,
+    due_at: Field::DateTime,
+    returned_at: Field::DateTime,
+    user: Field::BelongsTo,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -25,20 +24,19 @@ class BookDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     id
-    author
-    genre
-    isbn
+    book
+    due_at
+    returned_at
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     id
-    author
-    genre
-    isbn
-    title
-    total_copies
+    book
+    due_at
+    returned_at
+    user
     created_at
     updated_at
   ].freeze
@@ -47,11 +45,10 @@ class BookDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    author
-    genre
-    isbn
-    title
-    total_copies
+    book
+    due_at
+    returned_at
+    user
   ].freeze
 
   # COLLECTION_FILTERS
@@ -66,10 +63,14 @@ class BookDashboard < Administrate::BaseDashboard
   #   }.freeze
   COLLECTION_FILTERS = {}.freeze
 
-  # Overwrite this method to customize how books are displayed
+  # Overwrite this method to customize how borrows are displayed
   # across all pages of the admin dashboard.
   #
-   def display_resource(book)
-     "#{book.title} - #{book.author}"
-   end
+  def display_resource(borrow)
+    "Borrow ##{borrow.id}"
+  end
+
+  def display_resource_book(borrow)
+    borrow.book.author
+  end
 end

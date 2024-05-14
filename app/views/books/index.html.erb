@@ -1,0 +1,29 @@
+<h1>Books</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Genre</th>
+      <th>ISBN</th>
+      <th>Total Copies</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @books.each do |book| %>
+      <tr>
+        <td><%= book.title %></td>
+        <td><%= book.author %></td>
+        <td><%= book.genre %></td>
+        <td><%= book.isbn %></td>
+        <td><%= book.total_copies %></td>
+        <td>
+          <%= button_to 'Borrow', borrow_book_path(book), method: :post %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

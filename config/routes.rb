@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'books/index'
   namespace :admin do
     resources :books
 
@@ -14,6 +15,12 @@ Rails.application.routes.draw do
   get 'pages/home'
 
   devise_for :users
+
+  resources :books, only: [:index] do
+    member do
+      post :borrow
+    end
+  end
 
   root to: 'pages#home'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

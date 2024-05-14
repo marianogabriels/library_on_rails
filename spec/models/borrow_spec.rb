@@ -17,4 +17,37 @@ RSpec.describe Borrow, type: :model do
     end
   end
 
+
+  describe 'validations' do
+
+    let(:user1) { FactoryBot.create(:user) }
+    let(:user2) { FactoryBot.create(:user) }
+    let(:book) { FactoryBot.create(:book, total_copies: 1) }
+
+    it 'allows different users to borrow the same book if copies are available' do
+      book.update(total_copies: 2)
+      borrow1 = Borrow.create(user: user1, book: book)
+      borrow2 = Borrow.create(user: user2, book: book)
+
+      expect(borrow1).to be_valid
+      expect(borrow2).to be_valid
+    end
+
+    it 'does not allow the same user to borrow the same book multiple times' do
+      Borrow.create(user: user1, book: book)
+      duplicate_borrow = Borrow.new(user: user1, book: book)
+
+      expect(duplicate_borrow).not_to be_valid
+      expect(duplicate_borrow.errors[:book_id]).to include("can't be borrowed multiple times by the same user")
+    end
+
+    it 'does not allow borrowing a book if no copies are available' do
+      Borrow.create(user: user1, book: book)
+      borrow = Borrow.new(user: user2, book: book)
+
+      expect(borrow).not_to be_valid
+      expect(borrow.errors[:book]).to include("has no available copies")
+    end
+  end
+
 end

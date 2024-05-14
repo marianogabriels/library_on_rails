@@ -10,6 +10,8 @@ gem "sprockets-rails"
 
 gem 'pg'
 
+gem 'administrate'
+
 gem 'pundit'
 
 gem 'devise'

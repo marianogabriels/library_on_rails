@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    resources :books
+    #resources :users
+
+    root to: "books#index"
+  end
+
   get 'pages/home'
+
   devise_for :users
 
   root to: 'pages#home'

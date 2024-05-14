@@ -5,6 +5,9 @@ class User < ApplicationRecord
           :rememberable, :validatable
   ROLES = ['member', 'librarian']
 
+  has_many :borrows
+  has_many :borrowed_books, through: :borrows, source: :book
+
   def librarian?
     role == 'librarian'
   end

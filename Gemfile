@@ -10,6 +10,8 @@ gem "sprockets-rails"
 
 gem 'pg'
 
+gem 'pundit'
+
 gem 'devise'
 
 # Use sqlite3 as the database for Active Record

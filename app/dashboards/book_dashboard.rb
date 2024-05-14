@@ -69,7 +69,7 @@ class BookDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how books are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(book)
-  #   "Book ##{book.id}"
-  # end
+   def display_resource(book)
+     "#{book.title} - #{book.author}"
+   end
 end

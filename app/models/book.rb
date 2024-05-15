@@ -5,7 +5,7 @@ class Book < ApplicationRecord
 
   def self.search(query)
     sanitized_query = sanitize_sql_like(query)
-    where("title ILIKE ? OR author ILIKE ? OR genre ILIKE ?", "%#{sanitized_query}%", "%#{sanitized_query}%", "%#{sanitized_query}%")
+    where("title ilike ? or author ilike ? or genre ilike ?", "%#{sanitized_query}%", "%#{sanitized_query}%", "%#{sanitized_query}%")
   end
 
   def available?

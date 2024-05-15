@@ -1,4 +1,4 @@
-class Api::V1::BorrowsController < ApplicationController
+class Api::V1::BorrowsController < Api::V1::ApplicationController
   before_action :set_borrow, only: [:show, :destroy, :mark_as_returned]
 
   # GET /api/v1/borrows

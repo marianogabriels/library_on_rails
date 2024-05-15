@@ -13,6 +13,17 @@ Rails.application.routes.draw do
     root to: "books#index"
   end
 
+  namespace :api do
+    namespace :v1 do
+      resources :books
+      resources :borrows do
+        member do
+          patch :mark_as_returned
+        end
+      end
+    end
+  end
+
   get 'pages/home'
 
   devise_for :users

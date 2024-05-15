@@ -7,4 +7,34 @@
   <p><b>Total borrowed Books:</b> <%= @stats[:borrowed_books] %></p>
   <br>
   <p><b>Books Due today</b> <%= @stats[:borrowed_books_due_today] %></p>
+
+  <section class="main-content__body main-content__body--flush">
+    <h1>Users with Overdue Books</h1>
+
+    <table aria-labelledby="page-title">
+      <thead>
+        <tr>
+          <th class="cell-label cell-label--string cell-label--false cell-label--user_id" scope="col" aria-sort="none">
+            Id
+          </th>
+          <th class="cell-label cell-label--string cell-label--false cell-label--user_email" scope="col" aria-sort="none">
+            Email
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @users_with_overdue_books.each do |user| %>
+          <tr class="js-table-row">
+            <td class="cell-data cell-data--string">
+              <%= user.id %>
+            </td>
+            <td class="cell-data cell-data--string">
+              <%= user.email %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </section>
 </div>

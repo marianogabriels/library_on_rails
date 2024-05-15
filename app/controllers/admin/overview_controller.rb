@@ -6,6 +6,7 @@ module Admin
         borrowed_books: Borrow.waiting_return.count,
         borrowed_books_due_today: Borrow.due_today.count
       }
+      @users_with_overdue_books = User.with_overdue_books
     end
   end
 end

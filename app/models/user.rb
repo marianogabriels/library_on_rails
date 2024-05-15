@@ -12,6 +12,10 @@ class User < ApplicationRecord
     role == 'librarian'
   end
 
+  def self.with_overdue_books
+    joins(:borrows).merge(Borrow.overdue).distinct
+  end
+
   def member?
     role == 'member'
   end

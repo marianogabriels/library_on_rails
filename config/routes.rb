@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :books
 
+    resources :overview, only: [:index]
     resources :borrows do
       member do
         post :mark_as_returned
